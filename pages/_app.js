@@ -6,6 +6,7 @@ import { store } from "../redux/reducers";
 import AuthProvider from "../components/authProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "@fontsource/open-sans";
 
 function MyApp({ Component, pageProps }) {
   return (
