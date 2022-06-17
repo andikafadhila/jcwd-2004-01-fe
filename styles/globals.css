@@ -76,4 +76,7 @@
   .right-icon-false {
     @apply text-gray-400 bg-white px-4;
   }
+  .toastify-color-error {
+    @apply bg-[#F56565];
+  }
 }

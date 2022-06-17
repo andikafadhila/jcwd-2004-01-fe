@@ -136,6 +136,11 @@ const Login = ({ loginAction }) => {
                 value={formik.values.password}
               />
             </div>
+            {formik.touched.password && formik.errors.password ? (
+              <p className="text-sm ml-3 text-pinktertiary">
+                {formik.errors.password}
+              </p>
+            ) : null}
           </div>
 
           <div className="flex justify-between items-center w-[327px] lg:w-[528px] mt-2">

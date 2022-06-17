@@ -36,9 +36,8 @@ const Register = ({ registerAction }) => {
     validationSchema: Yup.object({
       email: Yup.string().email("Invalid email format").required("Required"),
       name: Yup.string()
-        .max(25, "Must contain 25 characters or less")
-        .required("Required")
-        .matches(/^\S*$/, "Should not contain spaces"),
+        .max(100, "Must contain 100 characters or less")
+        .required("Required"),
       password: Yup.string()
         .min(8, "Must contain 8 characters or more")
         .matches(/[A-Z]/g, "Should contain at least an uppercase letter")
@@ -69,15 +68,15 @@ const Register = ({ registerAction }) => {
 
   return (
     <div className="flex">
-      <div className="hidden w-[720px] h-fit lg:flex lg:flex-col items-center">
+      <div className="w-[720px] h-fit hidden lg:flex lg:flex-col items-center">
         <div>
           <img className="absolute top-8 left-16" src={logo} alt="" />
           <img src={imageRegisterLogin} alt="" />
         </div>
       </div>
-      <div>
+      <div className="w-[375px] h-fit lg:max-h-[768px] lg:w-[720px] mx-8 lg:mx-0 overflow-hidden">
         <form
-          className="w-[375px] h-fit lg:w-[720px] flex flex-col items-center mx-8 lg:mx-0"
+          className="flex flex-col items-center "
           onSubmit={formik.handleSubmit}
         >
           <div className="w-[327px] lg:hidden">
@@ -176,6 +175,11 @@ const Register = ({ registerAction }) => {
                 value={formik.values.name}
               />
             </div>
+            {formik.touched.name && formik.errors.name ? (
+              <p className="text-sm ml-3 text-red-500 pt-1">
+                {formik.errors.name}
+              </p>
+            ) : null}
           </div>
 
           <div className="mt-2 space-y-1">
@@ -200,6 +204,9 @@ const Register = ({ registerAction }) => {
                 value={formik.values.email}
               />
             </div>
+            {formik.touched.email && formik.errors.email ? (
+              <p className="text-sm ml-3 text-red-500">{formik.errors.email}</p>
+            ) : null}
           </div>
 
           <div className="mt-3 space-y-1">
@@ -228,6 +235,11 @@ const Register = ({ registerAction }) => {
                 value={formik.values.password}
               />
             </div>
+            {formik.touched.password && formik.errors.password ? (
+              <p className="text-sm ml-3 text-red-500">
+                {formik.errors.password}
+              </p>
+            ) : null}
           </div>
 
           <div className="flex items-center gap-2 w-[327px] lg:w-[528px] mt-8">

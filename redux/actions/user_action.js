@@ -1,6 +1,7 @@
 import axios from "axios";
 import API_URL from "../../helpers/apiurl";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 export const registerAction = ({ ...values }) => {
   return async (dispatch) => {
@@ -18,6 +19,17 @@ export const registerAction = ({ ...values }) => {
       dispatch({
         type: "ERROR",
         payload: error.response.data.message || "Network Error",
+      });
+      toast.error(error.response.data.message, {
+        className: "toastify-color-error",
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
       });
       console.log(error);
     } finally {
@@ -38,10 +50,30 @@ export const loginAction = ({ ...values }) => {
 
       Cookies.set("token", res.headers["x-token-access"]);
       // Cookies.set("role", encryptrole);
+      toast.success("🦄 Wow so easy!", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     } catch (error) {
       dispatch({
         type: "ERROR",
         payload: error.response.data.message || "Network Error",
+      });
+      toast.error("Heyya", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
       });
     } finally {
       dispatch({ type: "DONE" });

@@ -1,5 +1,5 @@
-import InputForm from "../components/input_form";
-import MobileHeader from "../components/mobile_header";
+import InputForm from "../../components/input_form";
+import MobileHeader from "../../components/mobile_header";
 import { Button } from "@chakra-ui/react";
 import { FaUserCircle } from "react-icons/fa";
 import { AiFillLock } from "react-icons/ai";
@@ -10,6 +10,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
+import API_URL from "../../helpers/apiurl";
 
 const ResetPassword = () => {
   const imageRegisterLogin = "/Frame.svg";
@@ -44,15 +46,11 @@ const ResetPassword = () => {
 
     onSubmit: async (values) => {
       try {
-        await axios.post(
-          `${API_URL}/auth/forgotpassword/resetpassword`,
-          values,
-          {
-            headers: {
-              authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        await axios.post(`${API_URL}/auth/resetpassword`, values, {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        });
 
         router.push("/login");
       } catch (error) {
@@ -125,7 +123,7 @@ const ResetPassword = () => {
                 placeholder={"Confirm password"}
                 rightIcon={<BsEyeSlashFill />}
                 altIcon={<BsEyeFill />}
-                name="password"
+                name="confirmPassword"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.confirmPassword}
@@ -137,7 +135,7 @@ const ResetPassword = () => {
                 placeholder={"Confirm password"}
                 rightIcon={<BsEyeSlashFill />}
                 altIcon={<BsEyeFill />}
-                name="password"
+                name="confirmPassword"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.confirmPassword}
@@ -162,5 +160,11 @@ const ResetPassword = () => {
     </div>
   );
 };
+
+export async function getServerSideProps() {
+  return {
+    props: {}, // will be passed to the page component as props
+  };
+}
 
 export default ResetPassword;
